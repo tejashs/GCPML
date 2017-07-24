@@ -301,7 +301,7 @@ public class LandingPage extends AppCompatActivity implements Callback{
 
     @Override
     public void returnFailure(String errorMessage) {
-
+        Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
     }
 
 //    public void volleyImageUpload(final String stringImage){
