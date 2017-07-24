@@ -42,10 +42,14 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.loopj.android.http.*;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import static android.graphics.BitmapFactory.decodeFile;
 
-public class LandingPage extends AppCompatActivity {
-    private static final String BASE_URL = "https://saphxe-168717.appspot.com/predict/";
+public class LandingPage extends AppCompatActivity implements Callback{
+//    private static final String BASE_URL = "https://saphxe-168717.appspot.com/predict/";
+    private static final String BASE_URL = "http://10.0.2.2:5000/predict/";
     private static final String FLOWER = "flower";
     private static final String NUMBER = "number";
     private Uri imageUri;
@@ -265,7 +269,7 @@ public class LandingPage extends AppCompatActivity {
             }
 
             MyHttpClient client = new MyHttpClient();
-            client.post(url, this, params);
+            client.post(this, url, params);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -284,6 +288,20 @@ public class LandingPage extends AppCompatActivity {
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
         return imageBytes;
+    }
+
+    @Override
+    public void returnSuccess(JSONObject json) throws JSONException {
+        String category = json.getString("objectCategory");
+        String type = json.getString("objectType");
+        String message = "Predicted " + category + " is " + type;
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    public void returnFailure(String errorMessage) {
+
     }
 
 //    public void volleyImageUpload(final String stringImage){
