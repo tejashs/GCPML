@@ -3,6 +3,7 @@ package com.example.i861944.gcpml;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -215,17 +216,8 @@ public class LandingPage extends AppCompatActivity implements Callback{
     }
 
     public void doPrediction(View v){
-        //try {
-            //Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-            //String strImage = getStringImage(bitmap);
-            //volleyImageUpload(strImage);
             uploadFileAsync();
-        //} catch (IOException e) {
-            //e.printStackTrace();
-        //}
     }
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -295,59 +287,16 @@ public class LandingPage extends AppCompatActivity implements Callback{
         String category = json.getString("objectCategory");
         String type = json.getString("objectType");
         String message = "Predicted " + category + " is " + type;
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        FragmentManager fm = getFragmentManager();
+        FlowerDetail dialogFragment = new FlowerDetail ();
+        dialogFragment.setFlowerDetails(json);
+        dialogFragment.show(fm, "Sample Fragment");
 
     }
-
     @Override
     public void returnFailure(String errorMessage) {
         Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
     }
-
-//    public void volleyImageUpload(final String stringImage){
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String s) {
-//                        //Disimissing the progress dialog
-//                        //Showing toast message of the response
-//                        Toast.makeText(LandingPage.this, "Upload Flower activity Successful", Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError volleyError) {
-//                        Toast.makeText(LandingPage.this, "Upload Flower activity Failed", Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                }){
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                //Converting Bitmap to String
-//                String image = stringImage;
-//
-//                //Getting Image Name
-//                String name = "BlahflowerImageName";
-//
-//                //Creating parameters
-//                Map<String,String> params = new Hashtable<String, String>();
-//
-//                //Adding parameters
-//                params.put("flowerImage", image);
-//                params.put("name", name);
-//
-//                //returning parameters
-//                return params;
-//            }
-//        };
-//
-//        //Creating a Request Queue
-//        RequestQueue requestQueue = Volley.newRequestQueue(this);
-//
-//        //Adding request to the queue
-//        requestQueue.add(stringRequest);
-//    }
-
 
 }
