@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,7 @@ public class FlowerDetail extends DialogFragment implements View.OnClickListener
             TextView description = (TextView) view.findViewById(R.id.description);
             String desc = flowerDetails.getString("description");
             description.setText(desc);
+            description.setMovementMethod(new ScrollingMovementMethod());
 
             TextView wiki = (TextView) view.findViewById(R.id.wikilink);
             String wikilink = flowerDetails.getString("wikiLink");
