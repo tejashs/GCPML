@@ -49,8 +49,8 @@ import org.json.JSONObject;
 import static android.graphics.BitmapFactory.decodeFile;
 
 public class LandingPage extends AppCompatActivity implements Callback{
-//    private static final String BASE_URL = "https://saphxe-168717.appspot.com/predict/";
-    private static final String BASE_URL = "http://10.0.2.2:5000/predict/";
+    private static final String BASE_URL = "https://saphxe-168717.appspot.com/predict/";
+//    private static final String BASE_URL = "http://10.0.2.2:5000/predict/";
     private static final String FLOWER = "flower";
     private static final String NUMBER = "number";
     private Uri imageUri;
