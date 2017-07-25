@@ -287,12 +287,15 @@ public class LandingPage extends AppCompatActivity implements Callback{
         String category = json.getString("objectCategory");
         String type = json.getString("objectType");
         String message = "Predicted " + category + " is " + type;
-//        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-        FragmentManager fm = getFragmentManager();
-        FlowerDetail dialogFragment = new FlowerDetail ();
-        dialogFragment.setFlowerDetails(json);
-        dialogFragment.show(fm, "Sample Fragment");
 
+        if(category.equals("Number")) {
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        } else {
+            FragmentManager fm = getFragmentManager();
+            FlowerDetail dialogFragment = new FlowerDetail();
+            dialogFragment.setFlowerDetails(json);
+            dialogFragment.show(fm, "Sample Fragment");
+        }
     }
     @Override
     public void returnFailure(String errorMessage) {
